@@ -57,7 +57,7 @@ from storage import (
 )
 
 # ── Config ────────────────────────────────────────────────────────────────────
-BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+BOT_TOKEN = os.getenv("MTU0NDQzNjM3Nzg1NTMzMjQ3Mw.GUTH4L.muaUgty9lVfiiVJCnuWKRIOgKESO-J3V0Z9Lkw")
 if not BOT_TOKEN:
     raise ValueError("❌ Missing DISCORD_BOT_TOKEN in Railway Variables")
 
