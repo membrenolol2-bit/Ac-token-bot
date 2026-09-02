@@ -352,15 +352,28 @@ def remove_permanent_cooldown(discord_id: str, pool: str) -> bool:
 
 
 def get_rotating_token() -> dict | None:
-    """Rotate through env accounts to give different tokens each time."""
+    """
+    Rotate through env accounts to give different tokens each time.
+
+    Returns:
+        {"token": ..., "refresh_token": ..., "source": ...} or None if no
+        env accounts are configured. "source" is "public" for the first
+        (primary) account, or "fallback_N" for any subsequent account.
+    """
     accounts = get_env_accounts()
     if not accounts:
         return None
-    
+
     # Use a simple rotation based on time
     import time
     index = int(time.time()) % len(accounts)
-    return accounts[index]
+    account = accounts[index]
+    source = "public" if index == 0 else f"fallback_{index + 1}"
+    return {
+        "token": account["token"],
+        "refresh_token": account["refresh_token"],
+        "source": source,
+    }
 
 
 def reset_user_cooldown(discord_id: str, pool: str | None = None) -> bool:
