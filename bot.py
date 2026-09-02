@@ -238,6 +238,8 @@ async def token_cmd(interaction: discord.Interaction):
 
         set_cooldown(user_id, "public")
 
+        source = tokens.get("source", "public")
+
         ttl = seconds_until_expiry(tokens["token"])
         payload = {
             "token": tokens["token"],
